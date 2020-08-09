@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ArrayOfContact>
+  <Contact>
+    <Name>Adam</Name>
+    <Surname>Karwowski</Surname>
+    <Email>asdads</Email>
+    <PhoneNumber>3223497842</PhoneNumber>
+    <Gender>Male</Gender>
+  </Contact>
+  <Contact>
+    <Name>asdd</Name>
+    <Surname>nfwofdw</Surname>
+    <Email>oncssdc</Email>
+    <PhoneNumber>239874</PhoneNumber>
+    <Gender>Female</Gender>
+  </Contact>
+  <Contact>
+    <Name>asdd</Name>
+    <Surname>aasd</Surname>
+    <Email>dsas</Email>
+    <PhoneNumber>eewe</PhoneNumber>
+    <Gender>Male</Gender>
+  </Contact>
+</ArrayOfContact>

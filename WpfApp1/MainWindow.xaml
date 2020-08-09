@@ -1,0 +1,213 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Contact Manager" Height="600" Width="800" MinHeight="500" MinWidth="500" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+
+        <local:GenderToImageConverter x:Key="GenderToImageConverter"/>
+        <local:ValidationBackgroundColorConverter x:Key="ValidationBackgroundColorConverter"/>
+        <AlternationConverter x:Key="BackgroundConverter">
+            <SolidColorBrush>#FFAFC5FF</SolidColorBrush>
+            <SolidColorBrush>#FF75A1FF</SolidColorBrush>
+        </AlternationConverter>
+
+        <Style TargetType="ListBoxItem" x:Key="ItemStyleLess">
+            <Setter Property="Height" Value="{Binding Path=Height}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self},
+                     Path=(ItemsControl.AlternationIndex),
+                     Converter={StaticResource BackgroundConverter}}"/>
+        </Style>
+
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:GenderTypes"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <DataTemplate x:Key="ContactTemplateEmpty">
+        <Grid Visibility="Hidden">
+            
+        </Grid>
+        </DataTemplate>
+    
+        <DataTemplate x:Key="ContactTemplateLess">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Path=Name}" FontSize="20" Margin="10, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Surname}" Margin="20, 0, 0, 0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Rectangle Grid.Column="2" Height="50" Width="50" Stroke="Black" Margin="0, 5, 20, 5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{Binding Path=Gender, Converter={StaticResource GenderToImageConverter}}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </DataTemplate>
+
+        <ControlTemplate x:Key="ContactTemplateLessControl1">
+            <Grid Background="#FFAFC5FF">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Path=Name}" FontSize="20" Margin="10, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Surname}" Margin="20, 0, 0, 0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Rectangle Grid.Column="2" Height="50" Width="50" Stroke="Black" Margin="0, 5, 20, 5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{Binding Path=Gender, Converter={StaticResource GenderToImageConverter}}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ContactTemplateLessControl2">
+            <Grid Background="#FF75A1FF">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Path=Name}" FontSize="20" Margin="10, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Surname}" Margin="20, 0, 0, 0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Rectangle Grid.Column="2" Height="50" Width="50" Stroke="Black" Margin="0, 5, 20, 5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{Binding Path=Gender, Converter={StaticResource GenderToImageConverter}}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
+        
+        <ControlTemplate x:Key="ContactTemplateMore">
+            <Grid Background="#FFFDCF6C">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Path=Name}" FontSize="20" Margin="10, 10, 0, 0" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Surname}" Margin="20, 10, 0, 0" FontSize="20" HorizontalAlignment="Left"/>
+                <Rectangle Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Stroke="Black" Height="50" Width="50" Margin="0, 0, 20, 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{Binding Path=Gender, Converter={StaticResource GenderToImageConverter}}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock Grid.Row="1" Text="E-mail:" FontWeight="Bold" FontSize="15" Margin="10, 0, 0, 0" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Email}" FontSize="15" Margin="10, 0, 0, 0" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="2" Text="Phone:" FontWeight="Bold" FontSize="15" Margin="10, 0, 0, 0" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=PhoneNumber}" FontSize="15" Margin="10, 0, 0, 0" HorizontalAlignment="Left"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Import" Click="MenuItem_Click_5" />
+                    <MenuItem Header="Export" Click="MenuItem_Click_4" />
+                    <Separator />
+                    <MenuItem Header="Exit" Click="MenuItem_Click_1" />
+                </MenuItem>
+                <MenuItem Header="Contacts">
+                    <MenuItem Header="Add Contacts" Click="MenuItem_Click_2" />
+                    <MenuItem Header="Clear Contacts" Click="MenuItem_Click_3" />
+                </MenuItem>
+                <MenuItem Header="About" Click="MenuItem_Click"/>
+            </Menu>
+            <TextBox AcceptsReturn="True" />
+        </DockPanel>
+        <TabControl Margin="0, 20, 0, 0">
+            <TabItem Header="List" IsSelected="true">
+                <ListBox Name="MyContactList" ItemContainerStyle="{StaticResource ItemStyleLess}" PreviewMouseDown="PlaceholdersListBox_OnPreviewMouseDown" 
+                         AlternationCount="2" IsSynchronizedWithCurrentItem="True" ItemTemplate="{StaticResource ContactTemplateEmpty}">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Delete" Click="DeleteEvent"/>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Grid" IsSelected="false">
+                <DataGrid Name="MyDataGrid" ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="True" AutoGenerateColumns="False" 
+                          RowEditEnding="RowEditEnding_Event">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding Path=Surname, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Path=Email, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Phone Number" Binding="{Binding Path=PhoneNumber, Mode=TwoWay}"/>
+                        <DataGridComboBoxColumn x:Name="DataGridComboBox" Header="Gender" ItemsSource="{Binding Path=Gender}" 
+                            SelectedItemBinding="{Binding Path=Gender, Mode=TwoWay}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Validation settings">
+                <Grid x:Name="ValidationPanel" Height="Auto" Width="Auto" Background="{Binding ElementName=emptyTextBlock, Path=Text, Converter={StaticResource ValidationBackgroundColorConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="emptyTextBlock" Text="0" Visibility="Collapsed"/>
+                    <Button Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" x:Name="ValidationButton" Opacity="1" HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" Width="250" Height="50" Background="White" 
+                            Content="Unlock Validation Settings" FontSize="20" Click="ValidationButton_Click" Margin="0, -300, 0, 0"/>
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" x:Name="ValidationTextBlock" Text="Validation settings" FontSize="20" FontWeight="Bold" 
+                               HorizontalAlignment="Center" Margin="0, 20, 0, 0" Visibility="Collapsed"/>
+                    <StackPanel x:Name="ValidationGrid" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" Margin="0, -100, 0, 0">
+                        <TextBlock Text="Name validation:" FontSize="20" HorizontalAlignment="Center" Margin="0, 0, 250, 0"/>
+                        <ComboBox Height="30" Width="200" HorizontalAlignment="Center" Margin="200, -25, 0, 0"  SelectionChanged="ValidationComboBoxName_Event">
+                            <ComboBoxItem>Content length rule</ComboBoxItem>
+                            <ComboBoxItem>Email rule</ComboBoxItem>
+                            <ComboBoxItem>Phone rule</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Surname validation:" FontSize="20" HorizontalAlignment="Center" Margin="0, 5, 250, 0"/>
+                        <ComboBox Height="30" Width="200" HorizontalAlignment="Center" Margin="200, -20, 0, 0" SelectionChanged="ValidationComboBoxSurname_Event">
+                            <ComboBoxItem>Content length rule</ComboBoxItem>
+                            <ComboBoxItem>Email rule</ComboBoxItem>
+                            <ComboBoxItem>Phone rule</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Email validation:" FontSize="20" HorizontalAlignment="Center" Margin="0, 5, 250, 0"/>
+                        <ComboBox Height="30" Width="200" HorizontalAlignment="Center" Margin="200, -20, 0, 0" SelectionChanged="ValidationComboBoxEmail_Event">
+                            <ComboBoxItem>Content length rule</ComboBoxItem>
+                            <ComboBoxItem>Email rule</ComboBoxItem>
+                            <ComboBoxItem>Phone rule</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Phone validation:" FontSize="20" HorizontalAlignment="Center" Margin="0, 5, 250, 0"/>
+                        <ComboBox Height="30" Width="200" HorizontalAlignment="Center" Margin="200, -20, 0, 0" SelectionChanged="ValidationComboBoxPhone_Event">
+                            <ComboBoxItem>Content length rule</ComboBoxItem>
+                            <ComboBoxItem>Email rule</ComboBoxItem>
+                            <ComboBoxItem>Phone rule</ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="LockValidationButton" Content="Lock validation settings" Width="200" Height="50" Margin="0, 20, 0, 0" Click="LockValidationButton_Event"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
